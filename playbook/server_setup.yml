@@ -6,4 +6,14 @@
   tasks:
     - name: Update apt packages
       apt:
+        upgrade: dist
         update_cache: yes
+
+    - name: Check if reboot-required
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: reboot
+      reboot:
+      when: reboot_required.stat.exists

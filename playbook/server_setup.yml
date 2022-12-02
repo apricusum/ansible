@@ -17,3 +17,18 @@
     - name: reboot
       reboot:
       when: reboot_required.stat.exists
+
+    - name: Install Ubuntu packages
+      apt:
+        pkg:
+          - python3-pip
+          - atop
+
+    - name: Install python packages
+      ansible.builtin.pip:
+        name:
+          - python-binance
+          - pandas
+          - binance-connector
+          - mplfinance
+          - sqlalchemy

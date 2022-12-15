@@ -29,6 +29,7 @@
         name:
           - python-binance
           - pandas
-          - binance-connector
           - mplfinance
           - sqlalchemy
+          - ta
+          - backtrader

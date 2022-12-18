@@ -33,3 +33,4 @@
           - sqlalchemy
           - ta
           - backtrader
+          - pandas_ta

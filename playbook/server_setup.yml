@@ -34,3 +34,4 @@
           - ta
           - backtrader
           - pandas_ta
+          - scipy

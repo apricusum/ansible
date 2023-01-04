@@ -4,34 +4,10 @@
   become: yes
 
   tasks:
-    - name: Update apt packages
-      apt:
-        upgrade: dist
-        update_cache: yes
+    - name: setup server base
+      include_role:
+        name: bibi.server_setup
 
-    - name: Check if reboot-required
-      stat:
-        path: /var/run/reboot-required
-      register: reboot_required
-
-    - name: reboot
-      reboot:
-      when: reboot_required.stat.exists
-
-    - name: Install Ubuntu packages
-      apt:
-        pkg:
-          - python3-pip
-          - atop
-
-    - name: Install python packages
-      ansible.builtin.pip:
-        name:
-          - python-binance
-          - pandas
-          - mplfinance
-          - sqlalchemy
-          - ta
-          - backtrader
-          - pandas_ta
-          - scipy
+    - name: setup algo server
+      include_role:
+        name: bibi.algo_server

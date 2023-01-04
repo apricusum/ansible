@@ -1,0 +1,25 @@
+- name: Copy ssh deploy key for repo
+  ansible.builtin.copy:
+    src: 'files/{{ item }}'
+    dest: "/root/.ssh/{{ item }}"
+    mode: 0400
+  with_items:
+    - algo_deploy_key
+    - algo_deploy_key.pub
+
+- name: Add a host in the configuration
+  community.general.ssh_config:
+    user: root
+    host: "github-algo-repo"
+    hostname: "github.com"
+    identity_file: "/root/.ssh/algo_deploy_key"
+    port: '22'
+    state: present
+
+- name: Clone algo repo
+  ansible.builtin.git:
+    repo: 'git@github-algo-repo:apricusum/quant_algo.git'
+    dest: /opt/quant_algo
+    single_branch: yes
+    version: main
+    force: true

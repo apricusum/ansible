@@ -23,3 +23,16 @@
     single_branch: yes
     version: main
     force: true
+
+- name: Create data directory
+  ansible.builtin.file:
+    path: /opt/data
+    state: directory
+    mode: '0755'
+
+- name: Create cron job for db creation
+  ansible.builtin.cron:
+    name: "db creation"
+    minute: "0"
+    hour: "0"
+    job: "rm /opt/data/*.db; python3 /opt/quant_algo/job_createDB.py"
